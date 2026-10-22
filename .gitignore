@@ -1,0 +1,9 @@
+Data/raw/
+Data/processed/
+*.db
+*.csv
+.airtel/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
