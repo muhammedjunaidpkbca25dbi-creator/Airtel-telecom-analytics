@@ -1,5 +1,5 @@
 data/raw/*
-!data/raw/airtel.db
+!data/raw/airtel_slim.db
 data/processed/
 *.csv
 .airtel/

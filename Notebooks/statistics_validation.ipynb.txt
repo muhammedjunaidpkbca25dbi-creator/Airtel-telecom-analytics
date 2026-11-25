@@ -1,0 +1,114 @@
+Remaining T2
+
+A =rev[rev.g== 'A'].s
+B =rev[rev.g== 'B'].s
+
+f_test(B,A)
+
+# p-value < 0.05 Hence significant 
+# We can do Z_test
+
+z_mean2(B,A)
+
+# p_value>0.05  hence not significant
+# FAILED TO REJECT h0
+
+________________________________________________________________________________________
+
+
+
+
+q("""SELECT ab_group, COUNT(*) AS n,             
+       SUM(device_type = 'Smartphone') AS smart,     
+       SUM(connection_type = 'Prepaid') AS prepaid  
+FROM   customer_features GROUP BY ab_group;    """)
+
+
+# smartphone
+z_prop2(9554,11004,9417,10996)
+
+# z_prop2(succes_of_B,total_b,success_of_a,total_a)
+
+#prepaid
+z_prop2(8574,11004,8575,10996)
+
+___________________________________________________________________________________
+
+we are checking 7 factors which are using  with average data usage
+
+# avg data- failed to reject
+# stated arpu -- failed to reject
+# Tenure - failed to reject
+# Complaint count - failed to reject
+# avg revenue from jan to apr - failed to reject
+# Smartphone users   significant -----reject
+# prepaid  - failed to reject
+
+
+____________________________________________________________________________________
+
+T3
+
+# Claim : the offer raised daily data usage
+# H₀ :both groups have the same true average daily data in May and June
+# H₁ :group B's average is higher
+# Tail :one-tailed — the company said so in advance
+
+off=q("""
+  SELECT c.ab_group AS g, u.customer_id,        
+       AVG(u.data_mb) AS m             
+FROM   usage_daily u                    
+JOIN   customer_features c ON c.customer_id = u.customer_id 
+WHERE  u.usage_date >= '2025-05-01'        
+GROUP  BY u.customer_id;   
+  """)
+
+Dividing into 2 groups
+ 
+A=off[off.g== 'A'].m
+B=off[off.g== 'B'].m
+
+
+f_test(A,B)
+# p-value < 0.05 so we can go for z-test
+
+
+z_mean2(A,B)
+# p-value<0.05 so , significant
+# HENCE  REJECT H0
+
+___________________________________________________________________________________________________
+
+T4
+
+# Claim :the offer reduced churn
+# H₀: both groups have the same true churn rate
+# H₁ :group B's churn rate is lower
+# Tail :one-tailed — the company said so in advance
+
+
+q("""
+  SELECT ab_group, COUNT(*) AS n,             
+       SUM(is_churned) AS all_churn,        
+       SUM(churn_date >= '2025-05-01')       
+         AS may_on                          
+FROM   customer_features GROUP BY ab_group; 
+
+  """)
+
+
+# all_churn
+z_prop2(2639,11004,2587,10996)
+
+# from may churn
+z_prop2(914,11004,905,10996)
+
+
+# P value  >  0.05     not significant
+
+# HENCE FAILED TO REJECT H0
+
+
+__________________________________________________________________________________
+
+
