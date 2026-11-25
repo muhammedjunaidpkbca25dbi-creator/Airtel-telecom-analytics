@@ -1,6 +1,6 @@
-data/raw/*
-!data/raw/airtel_slim.db
-data/processed/
+Data/raw/*
+!Data/raw/airtel_slim.db
+Data/processed/
 *.csv
 .airtel/
 __pycache__/
