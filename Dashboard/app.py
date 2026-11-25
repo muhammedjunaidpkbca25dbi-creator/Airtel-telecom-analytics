@@ -13,7 +13,7 @@ CSS = ('<style>'                                  # page spacing:
 st.markdown(CSS, unsafe_allow_html=True)          # apply it to the page
 HERE = os.path.dirname(os.path.abspath(__file__)) # the dashboard folder
 DB = os.path.join(HERE, '..', 'data', 'raw',      # up one level,
-                  'airtel.db')                    # into data/raw
+                  'airtel_slim.db')               # into data/raw
 @st.cache_data                                    # run each query once
 def q(sql, params=()):                            # every query, here
     con = sqlite3.connect(DB)                     # open the database
